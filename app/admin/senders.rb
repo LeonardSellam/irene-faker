@@ -1,5 +1,5 @@
-ActiveAdmin.register Actor do
-    permit_params :category, :first_name, :last_name, :lifen_uuid, :reference, :confidence, :document_reference_id
+ActiveAdmin.register Sender do
+    permit_params :category, :first_name, :last_name, :lifen_uuid, :reference, :confidence, :document_id
   
     index do
       selectable_column
@@ -16,16 +16,14 @@ ActiveAdmin.register Actor do
     filter :last_name
     filter :lifen_uuid
     filter :confidence
-    filter :category
   
     form do |f|
       f.inputs do
-        f.input :document_reference, collection: DocumentReference.all
+        f.input :document, collection: DocumentReference.all
         f.input :first_name
         f.input :last_name
         f.input :confidence
-        f.input :category
-        f.input :reference
+        f.input :reference        
       end
       f.actions
     end

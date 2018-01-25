@@ -1,4 +1,4 @@
-class Actor < ApplicationRecord
+class Patient < ApplicationRecord
     belongs_to :document_reference
 
     def to_irene_payload

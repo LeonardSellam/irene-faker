@@ -1,4 +1,4 @@
-class Actor < ApplicationRecord
+class Sender < ApplicationRecord
     belongs_to :document_reference
 
     def to_irene_payload

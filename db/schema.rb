@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125095222) do
+ActiveRecord::Schema.define(version: 20180125144415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20180125095222) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "actors", force: :cascade do |t|
+    t.string "category"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "lifen_uuid"
+    t.string "reference"
+    t.string "confidence"
+    t.bigint "document_reference_id"
+    t.index ["document_reference_id"], name: "index_actors_on_document_reference_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -46,4 +57,32 @@ ActiveRecord::Schema.define(version: 20180125095222) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "document_references", force: :cascade do |t|
+    t.string "file_name"
+    t.integer "ocr_was_used"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.float "confidence"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "reference"
+    t.string "role"
+    t.bigint "document_reference_id"
+    t.index ["document_reference_id"], name: "index_patients_on_document_reference_id"
+  end
+
+  create_table "senders", force: :cascade do |t|
+    t.float "confidence"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "reference"
+    t.string "role"
+    t.bigint "document_reference_id"
+    t.index ["document_reference_id"], name: "index_senders_on_document_reference_id"
+  end
+
+  add_foreign_key "actors", "document_references"
+  add_foreign_key "patients", "document_references"
+  add_foreign_key "senders", "document_references"
 end
